@@ -37,6 +37,10 @@ public class UserService implements UserDetailsService{
 	public void delete(User user) {
 		userDao.remove(user);
 	}
+	
+	public User getByUsername(String username){
+		return userDao.getByUsername(username);
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

@@ -1,5 +1,7 @@
 package com.vanny96.controller;
 
+import java.security.Principal;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,12 +16,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.vanny96.model.Post;
 import com.vanny96.model.User;
 import com.vanny96.service.PostService;
+import com.vanny96.service.UserService;
 
 @Controller
 public class PostController {
 
 	@Autowired
 	private PostService postService;
+	
+	@Autowired
+	private UserService userService;
 	
 	@GetMapping({"/", "/posts"})
 	public String posts(Model model) {
@@ -35,8 +41,10 @@ public class PostController {
 	}
 	
 	@PostMapping("/posts/new")
-	public String savePost(@Valid @ModelAttribute Post post, BindingResult binding) {
-		
+	public String savePost(@Valid @ModelAttribute Post post, BindingResult binding,
+							Principal principal) {
+		User user = userService.getByUsername(principal.getName());
+		post.setOwner(user);
 		
 		if(binding.hasErrors()) {
 			return "post/postForm";
