@@ -42,6 +42,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		http.authorizeRequests()
 			.antMatchers("/**").permitAll()
 			.antMatchers("/posts/new").authenticated()
+			.antMatchers("/posts/{id}/delete").access("@idControlBean.checkId(authentication, #id)")
 		.and().formLogin()
 			.loginProcessingUrl("/login")
 			.permitAll()
