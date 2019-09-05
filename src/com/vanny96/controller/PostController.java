@@ -9,7 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -41,7 +40,7 @@ public class PostController {
 	}
 	
 	@PostMapping("/posts/new")
-	public String savePost(@Valid @ModelAttribute Post post, BindingResult binding,
+	public String savePost(@Valid Post post, BindingResult binding,
 							Principal principal) {
 		User user = userService.getByUsername(principal.getName());
 		post.setOwner(user);
@@ -66,5 +65,25 @@ public class PostController {
 		postService.delete(postService.getById(id));
 		
 		return "redirect:/posts";
+	}
+	
+	@GetMapping("posts/{id}/edit")
+	public String editUser(@PathVariable int id, Model model) {
+		model.addAttribute("post", postService.getById(id));
+		
+		return "post/postForm";
+	}
+	
+	@PostMapping("posts/{id}/edit")
+	public String updateUser(@Valid Post post, BindingResult binding, Principal principal) {
+		User user = userService.getByUsername(principal.getName());
+		post.setOwner(user);
+		
+		if(binding.hasErrors()) {
+			return "post/postForm";
+		} else {
+			postService.save(post);
+			return "redirect:/posts";
+		}
 	}
 }
