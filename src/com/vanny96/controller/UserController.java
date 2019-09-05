@@ -70,7 +70,7 @@ public class UserController {
 	
 	@GetMapping("/{id}/edit")
 	public String editPassword() {
-		return "passwordForm";
+		return "user/passwordForm";
 	}
 	
 	@PostMapping("/{id}/edit")

@@ -8,6 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
+<a href="${pageContext.request.contextPath}/login">Login</a>
+<a href="${pageContext.request.contextPath}/users/new">Sign Up</a>
 <a href="${pageContext.request.contextPath}/posts/new">New post</a>
 <c:forEach items="${posts}" var="post">
 <h4><a href="${pageContext.request.contextPath}/posts/${post.id}">${post.title}</a></h4><br>

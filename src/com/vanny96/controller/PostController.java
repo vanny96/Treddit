@@ -33,7 +33,7 @@ public class PostController {
 		return "post/posts";
 	}
 	
-	@GetMapping("posts/new")
+	@GetMapping("/posts/new")
 	public String newPost(Model model) {
 		model.addAttribute("post", new Post());
 		return "post/postForm";
@@ -60,21 +60,21 @@ public class PostController {
 		return "post/post";
 	}
 	
-	@GetMapping("posts/{id}/delete")
+	@GetMapping("/posts/{id}/delete")
 	public String deleteUser(@PathVariable int id) {
 		postService.delete(postService.getById(id));
 		
 		return "redirect:/posts";
 	}
 	
-	@GetMapping("posts/{id}/edit")
+	@GetMapping("/posts/{id}/edit")
 	public String editUser(@PathVariable int id, Model model) {
 		model.addAttribute("post", postService.getById(id));
 		
 		return "post/postForm";
 	}
 	
-	@PostMapping("posts/{id}/edit")
+	@PostMapping("/posts/{id}/edit")
 	public String updateUser(@Valid Post post, BindingResult binding, Principal principal) {
 		User user = userService.getByUsername(principal.getName());
 		post.setOwner(user);

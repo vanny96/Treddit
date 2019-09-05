@@ -26,7 +26,6 @@ public class Post implements Serializable{
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
-	@NotNull
 	private User owner;
 
 	public Post(int id, String title, String body) {

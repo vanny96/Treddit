@@ -52,7 +52,7 @@ public class UserService implements UserDetailsService{
 		User user = userDao.getByUsername(username);
 		return org.springframework.security.core.userdetails.User.withUsername(user.getUsername())
 																.password(user.getPassword())
-																.roles("ROLE_USER").build();
+																.roles("USER").build();
 	}
 
 	
