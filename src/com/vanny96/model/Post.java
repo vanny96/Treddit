@@ -3,6 +3,8 @@ package com.vanny96.model;
 import java.io.Serializable;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "posts")
@@ -15,13 +17,16 @@ public class Post implements Serializable{
 	private int id;
 	
 	@Column
+	@NotBlank
 	private String title;
 	
 	@Column
+	@NotBlank
 	private String body;
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
+	@NotNull
 	private User owner;
 
 	public Post(int id, String title, String body) {

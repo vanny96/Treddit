@@ -41,8 +41,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 			.antMatchers("/posts/new").authenticated()
-			.antMatchers("/posts/{id}/delete").access("@checkAuth.checkId(authentication, #id)")
-			.antMatchers("/users/{id}/delete").access("@checkAuth.checkId(authentication, #id)")
+			.antMatchers("/*/{id}/delete").access("@idControlBean.checkId(authentication, #id)")
+			.antMatchers("/*/{id}/edit").access("@idControlBean.checkId(authentication, #id)")
 			.antMatchers("/**").permitAll()
 		.and().formLogin()
 			.loginProcessingUrl("/login")

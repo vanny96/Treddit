@@ -38,7 +38,12 @@ public class UserService implements UserDetailsService{
 		userDao.remove(user);
 	}
 	
-	public User getByUsername(String username) {
+	public void update(User user) {
+		user.setPassword(encoder.encode(user.getPassword()));
+		userDao.update(user);
+	}
+	
+	public User getByUsername(String username){
 		return userDao.getByUsername(username);
 	}
 
@@ -49,4 +54,6 @@ public class UserService implements UserDetailsService{
 																.password(user.getPassword())
 																.roles("ROLE_USER").build();
 	}
+
+	
 }
